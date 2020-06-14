@@ -66,70 +66,70 @@ public class CalculatorGui extends JFrame {
         number0 = new JButton("0");
         number0.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("0");
+                result.setText(result.getText() + "0");
             }
         });
         
         number1 = new JButton("1");
         number1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("1");
+                result.setText(result.getText() + "1");
             }
         });
         
         number2 = new JButton("2");
         number2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("2");
+                result.setText(result.getText() + "2");
             }
         });
         
         number3 = new JButton("3");
         number3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("3");
+                result.setText(result.getText() + "3");
             }
         });
         
         number4 = new JButton("4");
         number4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("4");
+                result.setText(result.getText() + "4");
             }
         });
         
         number5 = new JButton("5");
         number5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("5");
+                result.setText(result.getText() + "5");
             }
         });
         
         number6 = new JButton("6");
         number6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("6");
+                result.setText(result.getText() + "6");
             }
         });
         
         number7 = new JButton("7");
         number7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("7");
+                result.setText(result.getText() + "7");
             }
         });
         
         number8 = new JButton("8");
         number8.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("8");
+                result.setText(result.getText() + "8");
             }
         });
         
         number9 = new JButton("9");
         number9.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                result.setText("9");
+                result.setText(result.getText() + "9");
             }
         });
         

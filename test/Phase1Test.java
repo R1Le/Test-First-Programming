@@ -1,14 +1,14 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class Phase1 {
+class Phase1Test {
     
     private static CalculatorGui calculator;
     
-    @BeforeAll
-    public static void createCalculator() {
+    @BeforeEach
+    public void createCalculator() {
         calculator = new CalculatorGui();
     }
     
@@ -71,13 +71,4 @@ class Phase1 {
         calculator.number9.doClick();
         assertEquals(9, Integer.parseInt(calculator.result.getText()));
     }
-    
-    //Multi-digit numbers are not implemented in first phase.
-    @Test
-    void getMultiNumber() {
-        calculator.number9.doClick();
-        calculator.number8.doClick();
-        assertEquals(98, Integer.parseInt(calculator.result.getText()));
-    }
-    
 }
