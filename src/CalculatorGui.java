@@ -28,6 +28,8 @@ public class CalculatorGui extends JFrame {
     JButton number7;
     JButton number8;
     JButton number9;
+    JButton clearButton;
+    JButton backSpaceButton;
     
     /**
      * Launch the application.
@@ -133,6 +135,23 @@ public class CalculatorGui extends JFrame {
             }
         });
         
+        clearButton = new JButton("C");
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                result.setText("");
+            }
+        });
+        
+        backSpaceButton = new JButton("<--");
+        backSpaceButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int length = result.getText().length();
+                if (length > 0) {
+                    result.setText(result.getText().substring(0, length - 1));
+                }
+            }
+        });
+        
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
             groupLayout.createParallelGroup(Alignment.LEADING)
@@ -144,8 +163,6 @@ public class CalculatorGui extends JFrame {
                         .addGroup(groupLayout.createSequentialGroup()
                             .addGap(193)
                             .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(number8)
-                                .addComponent(number9)
                                 .addComponent(number7)
                                 .addComponent(number6)
                                 .addComponent(number5)
@@ -153,7 +170,15 @@ public class CalculatorGui extends JFrame {
                                 .addComponent(number3)
                                 .addComponent(number2)
                                 .addComponent(number1)
-                                .addComponent(number0))))
+                                .addComponent(number0)
+                                .addGroup(groupLayout.createSequentialGroup()
+                                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(number9)
+                                        .addComponent(number8))
+                                    .addGap(35)
+                                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(backSpaceButton)
+                                        .addComponent(clearButton))))))
                     .addContainerGap())
         );
         groupLayout.setVerticalGroup(
@@ -162,9 +187,13 @@ public class CalculatorGui extends JFrame {
                     .addContainerGap()
                     .addComponent(result, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(number9)
+                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(number9)
+                        .addComponent(clearButton))
                     .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(number8)
+                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(number8)
+                        .addComponent(backSpaceButton))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(number7)
                     .addPreferredGap(ComponentPlacement.RELATED)

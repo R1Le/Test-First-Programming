@@ -4,7 +4,8 @@ import org.junit.runner.RunWith;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({ Phase1Test.class,
-                 Phase2Test.class })
+                 Phase2Test.class,
+                 Phase3Test.class })
 
 class AllTests {
     
