@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
                  Phase2Test.class,
                  Phase3Test.class,
                  Phase4Test.class,
-                 Phase5Test.class })
+                 Phase5Test.class,
+                 Phase6Test.class })
 
 class AllTests {
     

@@ -79,5 +79,4 @@ class Phase5Test {
         assertEquals("", calculator.processLabel.getText());
         assertEquals("7.0", calculator.result.getText());
     }
-
 }

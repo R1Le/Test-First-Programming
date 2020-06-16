@@ -41,6 +41,7 @@ public class CalculatorGui extends JFrame {
     JButton multiplicationButton;
     JButton divisionButton;
     JButton equalButton;
+    JButton dotButton;
     
     /**
      * Launch the application.
@@ -233,13 +234,25 @@ public class CalculatorGui extends JFrame {
         processLabel.setForeground(Color.RED);
         processLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         
+        dotButton = new JButton(".");
+        dotButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int length = result.getText().length();
+                if (length > 0 && !result.getText().contains(".")) {
+                    result.setText(result.getText() + ".");
+                }
+            }
+        });
+        
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
             groupLayout.createParallelGroup(Alignment.LEADING)
                 .addGroup(groupLayout.createSequentialGroup()
-                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                    .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
                         .addGroup(groupLayout.createSequentialGroup()
-                            .addGap(193)
+                            .addGap(69)
+                            .addComponent(dotButton)
+                            .addPreferredGap(ComponentPlacement.RELATED)
                             .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
                                 .addComponent(number2)
                                 .addComponent(number1)
@@ -265,22 +278,23 @@ public class CalculatorGui extends JFrame {
                         .addGroup(groupLayout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(result, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
-                        .addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-                            .addContainerGap(360, Short.MAX_VALUE)
+                        .addGroup(groupLayout.createSequentialGroup()
+                            .addContainerGap(429, Short.MAX_VALUE)
                             .addComponent(processLabel)))
                     .addContainerGap())
         );
         groupLayout.setVerticalGroup(
-            groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+            groupLayout.createParallelGroup(Alignment.TRAILING)
+                .addGroup(groupLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(processLabel)
-                    .addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                     .addComponent(result, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(number9)
-                        .addComponent(clearButton))
+                        .addComponent(clearButton)
+                        .addComponent(dotButton))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(number8)
