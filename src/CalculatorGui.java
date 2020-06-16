@@ -12,12 +12,14 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class CalculatorGui extends JFrame {
    
     private static final long serialVersionUID = 1L;
     
     JTextField result;
+    JLabel processLabel;
     
     Double firstNumber, secondNumber, answer;
     int calculation;
@@ -156,6 +158,9 @@ public class CalculatorGui extends JFrame {
         backSpaceButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int length = result.getText().length();
+                if (answer != null && Double.parseDouble(result.getText()) == answer) {
+                    return;
+                }
                 if (length > 0) {
                     result.setText(result.getText().substring(0, length - 1));
                 }
@@ -171,6 +176,7 @@ public class CalculatorGui extends JFrame {
                 doArithmeticOperation();
                 calculation = 1;
                 result.setText("");
+                processLabel.setText(answer + " +");
             }
         });
         
@@ -183,6 +189,7 @@ public class CalculatorGui extends JFrame {
                 doArithmeticOperation();
                 calculation = 2;
                 result.setText("");
+                processLabel.setText(answer + " -");
             }
         });
         
@@ -195,6 +202,7 @@ public class CalculatorGui extends JFrame {
                 doArithmeticOperation();
                 calculation = 3;
                 result.setText("");
+                processLabel.setText(answer + " *");
             }
         });
         
@@ -207,6 +215,7 @@ public class CalculatorGui extends JFrame {
                 doArithmeticOperation();
                 calculation = 4;
                 result.setText("");
+                processLabel.setText(answer + " /");
             }
         });
         
@@ -216,17 +225,19 @@ public class CalculatorGui extends JFrame {
                 if (calculation != 0 && !result.getText().isEmpty()) doArithmeticOperation();
                 if (answer != null) result.setText(Double.toString(answer));
                 calculation = 0;
+                processLabel.setText("");
             }
         });
+        
+        processLabel = new JLabel("");
+        processLabel.setForeground(Color.RED);
+        processLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
             groupLayout.createParallelGroup(Alignment.LEADING)
                 .addGroup(groupLayout.createSequentialGroup()
                     .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(groupLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(result, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
                         .addGroup(groupLayout.createSequentialGroup()
                             .addGap(193)
                             .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -250,14 +261,22 @@ public class CalculatorGui extends JFrame {
                                         .addComponent(subtractionButton)
                                         .addComponent(additionButton)
                                         .addComponent(backSpaceButton)
-                                        .addComponent(clearButton))))))
+                                        .addComponent(clearButton)))))
+                        .addGroup(groupLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(result, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
+                        .addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+                            .addContainerGap(360, Short.MAX_VALUE)
+                            .addComponent(processLabel)))
                     .addContainerGap())
         );
         groupLayout.setVerticalGroup(
             groupLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(groupLayout.createSequentialGroup()
+                .addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(result, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(processLabel)
+                    .addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                    .addComponent(result, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(number9)
@@ -292,7 +311,7 @@ public class CalculatorGui extends JFrame {
                     .addComponent(number1)
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(number0)
-                    .addContainerGap(44, Short.MAX_VALUE))
+                    .addContainerGap())
         );
         getContentPane().setLayout(groupLayout);
     }
