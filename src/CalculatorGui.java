@@ -1,8 +1,8 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.Point;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
@@ -13,9 +13,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import java.awt.Insets;
 
 public class CalculatorGui extends JFrame {
-   
+    
     private static final long serialVersionUID = 1L;
     
     JTextField result;
@@ -43,6 +45,9 @@ public class CalculatorGui extends JFrame {
     JButton equalButton;
     JButton dotButton;
     
+    JRadioButton turnOnButton;
+    JRadioButton turnOffButton;
+    
     /**
      * Launch the application.
      */
@@ -65,16 +70,17 @@ public class CalculatorGui extends JFrame {
     public CalculatorGui() {
         setTitle("Calculator");
         setType(Type.UTILITY);
-        setLocation(new Point(500, 250));
+        //setLocation(new Point(500, 250));
         setResizable(false);
-        setBounds(100, 100, 450, 550);
+        setBounds(500, 250, 220, 320);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         result = new JTextField();
+        result.setMargin(new Insets(5, 5, 5, 5));
         result.setBackground(Color.WHITE);
         result.setEditable(false);
         result.setHorizontalAlignment(SwingConstants.TRAILING);
-        result.setFont(new Font("Tahoma", Font.BOLD, 23));
+        result.setFont(new Font("Tahoma", Font.BOLD, 13));
         result.setColumns(10);
         
         number0 = new JButton("0");
@@ -224,7 +230,7 @@ public class CalculatorGui extends JFrame {
         equalButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (calculation != 0 && !result.getText().isEmpty()) doArithmeticOperation();
-                if (answer != null) result.setText(Double.toString(answer));
+                if (answer != null) result.setText(answer.toString());
                 calculation = 0;
                 processLabel.setText("");
             }
@@ -232,7 +238,7 @@ public class CalculatorGui extends JFrame {
         
         processLabel = new JLabel("");
         processLabel.setForeground(Color.RED);
-        processLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        processLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
         
         dotButton = new JButton(".");
         dotButton.addActionListener(new ActionListener() {
@@ -244,43 +250,72 @@ public class CalculatorGui extends JFrame {
             }
         });
         
+        turnOnButton = new JRadioButton("ON");
+        turnOnButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
+        turnOnButton.setSelected(true);
+        turnOnButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                turnOnOffCalculator(true);
+            }
+        });
+        
+        turnOffButton = new JRadioButton("OFF");
+        turnOffButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
+        turnOffButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                turnOnOffCalculator(false);
+            }
+        });
+        
+        ButtonGroup group = new ButtonGroup();
+        group.add(turnOnButton);
+        group.add(turnOffButton);
+        
         GroupLayout groupLayout = new GroupLayout(getContentPane());
         groupLayout.setHorizontalGroup(
             groupLayout.createParallelGroup(Alignment.LEADING)
                 .addGroup(groupLayout.createSequentialGroup()
-                    .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-                        .addGroup(groupLayout.createSequentialGroup()
-                            .addGap(69)
-                            .addComponent(dotButton)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                .addComponent(number2)
-                                .addComponent(number1)
-                                .addComponent(number0)
-                                .addGroup(groupLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(processLabel, Alignment.TRAILING)
+                        .addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+                            .addComponent(result, 0, 0, Short.MAX_VALUE)
+                            .addGroup(groupLayout.createSequentialGroup()
+                                .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                                    .addGroup(groupLayout.createSequentialGroup()
+                                        .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                                            .addComponent(number0)
+                                            .addComponent(number1)
+                                            .addComponent(number4)
+                                            .addComponent(number7))
+                                        .addPreferredGap(ComponentPlacement.RELATED)
+                                        .addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+                                            .addComponent(number2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(number5, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(number8, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(dotButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(number9)
-                                        .addComponent(number8)
-                                        .addComponent(number7)
-                                        .addComponent(number6)
-                                        .addComponent(number5)
-                                        .addComponent(number4)
-                                        .addComponent(number3))
-                                    .addGap(35)
-                                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(equalButton)
-                                        .addComponent(divisionButton)
-                                        .addComponent(multiplicationButton)
-                                        .addComponent(subtractionButton)
-                                        .addComponent(additionButton)
-                                        .addComponent(backSpaceButton)
-                                        .addComponent(clearButton)))))
-                        .addGroup(groupLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(result, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
-                        .addGroup(groupLayout.createSequentialGroup()
-                            .addContainerGap(429, Short.MAX_VALUE)
-                            .addComponent(processLabel)))
+                                        .addComponent(turnOnButton)
+                                        .addGroup(groupLayout.createSequentialGroup()
+                                            .addComponent(turnOffButton)
+                                            .addPreferredGap(ComponentPlacement.RELATED)
+                                            .addComponent(backSpaceButton))))
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+                                    .addGroup(groupLayout.createSequentialGroup()
+                                        .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                                            .addComponent(number3)
+                                            .addComponent(number6)
+                                            .addComponent(clearButton)
+                                            .addComponent(number9))
+                                        .addPreferredGap(ComponentPlacement.RELATED)
+                                        .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                                            .addComponent(additionButton)
+                                            .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+                                                .addComponent(subtractionButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(multiplicationButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(divisionButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(equalButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addContainerGap())
         );
         groupLayout.setVerticalGroup(
@@ -288,44 +323,41 @@ public class CalculatorGui extends JFrame {
                 .addGroup(groupLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(processLabel)
-                    .addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                    .addComponent(result, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+                    .addGap(21)
+                    .addComponent(result, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(turnOnButton)
                     .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(number9)
-                        .addComponent(clearButton)
-                        .addComponent(dotButton))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(number8)
-                        .addComponent(backSpaceButton))
-                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(turnOffButton)
+                        .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(backSpaceButton)
+                            .addComponent(clearButton)
+                            .addComponent(additionButton)))
+                    .addGap(18)
                     .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(number7)
-                        .addComponent(additionButton))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(number6)
-                        .addComponent(subtractionButton))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(number5)
-                        .addComponent(multiplicationButton))
+                        .addComponent(number8)
+                        .addComponent(subtractionButton)
+                        .addComponent(number9))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
                         .addComponent(number4)
+                        .addComponent(number5)
+                        .addComponent(number6)
+                        .addComponent(multiplicationButton))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(number1)
+                        .addComponent(number2)
+                        .addComponent(number3)
                         .addComponent(divisionButton))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                        .addComponent(number3)
+                        .addComponent(number0)
+                        .addComponent(dotButton)
                         .addComponent(equalButton))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(number2)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(number1)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(number0)
-                    .addContainerGap())
+                    .addGap(177))
         );
         getContentPane().setLayout(groupLayout);
     }
@@ -359,5 +391,26 @@ public class CalculatorGui extends JFrame {
             result.setText("");
         }
         result.setText(result.getText() + numberValue);
+    }
+    
+    public void turnOnOffCalculator(Boolean enable) {
+        number0.setEnabled(enable);
+        number1.setEnabled(enable);
+        number2.setEnabled(enable);
+        number3.setEnabled(enable);
+        number4.setEnabled(enable);
+        number5.setEnabled(enable);
+        number6.setEnabled(enable);
+        number7.setEnabled(enable);
+        number8.setEnabled(enable);
+        number9.setEnabled(enable);
+        clearButton.setEnabled(enable);
+        backSpaceButton.setEnabled(enable);
+        additionButton.setEnabled(enable);
+        subtractionButton.setEnabled(enable);
+        multiplicationButton.setEnabled(enable);
+        divisionButton.setEnabled(enable);
+        equalButton.setEnabled(enable);
+        dotButton.setEnabled(enable);
     }
 }
